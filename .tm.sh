@@ -13,5 +13,5 @@
 export PATH=$PATH:'~/.fzf/bin'
 
 
-current_session=$(tmux display-message -p '#S')
-session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | awk -v cur="$current_session" '{ buffer[NR] = $0; } END { print cur; for(i=NR; i>0; i--) { if (buffer[i] != cur) print buffer[i] } }' | fzf --cycle --exit-0) && tmux switch-client -t "$session" 
+current_session=$(tmux display-message -p '#{session_name}')
+session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | awk -v cur="$current_session" '{ buffer[NR] = $0; } END { print cur; for(i=NR; i>0; i--) { if (buffer[i] != cur) print buffer[i] } }' | fzf --cycle) && tmux switch-client -t "$session" 
